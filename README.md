@@ -1,3 +1,8 @@
+# adjust pin layout of grbl 1.1 to drive Stepcraft D-2 with an Arduino Uno with following Shield:
+
+https://www.tindie.com/products/Ron/arduino-grbl-to-db25-cnc-shield-kit/
+
+***
 ![GitHub Logo](https://github.com/gnea/gnea-Media/blob/master/Grbl%20Logo/Grbl%20Logo%20250px.png?raw=true)
 
 ***
