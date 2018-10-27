@@ -37,5 +37,5 @@ Reset / Abort: A0 -> D9
 Enable (Spindle PWM): D11 -> D13  
 Probe: A5 -> A0  
 
-Limit: set only one limit (Y) on D10 as is
+Limit: set only one limit (Y) on D10 as is  
 set D11 /D12/ A5 as input but don't use
