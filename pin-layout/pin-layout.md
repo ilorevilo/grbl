@@ -34,8 +34,10 @@ Step Y: D3 -> D6 x
 Step Z: D4 -> D7 x  
 
 Reset / Abort: A0 -> D9  
-Enable (Spindle PWM): D11 -> D13  
+Enable (Spindle PWM): D11 -> D13 x  
 Probe: A5 -> A0  
 
 Limit: set only one limit (Y) on D10 as is x --> (D9, D11/D12 not configured here anymore)  
-set D11 /D12/ A5 as input but don't use
+D12 not set anymore as Limit Z Pin x  
+D11 not set as Spindle_direction_bit x  
+set A5 as input but don't use
