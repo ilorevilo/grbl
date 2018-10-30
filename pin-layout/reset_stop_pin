@@ -36,3 +36,26 @@ do mc_reset(); --> only action
 
 ---> remove control_reset_bit x
 ---> make other input port call mc_reset() when button pressed
+
+use ISR from limit switches (D13 now free)
+LIMIT_INT_vect 
+
+uint8_t get_limit_pin_mask(uint8_t axis_idx)
+{
+  if ( axis_idx == X_AXIS ) { return((1<<X_LIMIT_BIT)); }
+  if ( axis_idx == Y_AXIS ) { return((1<<Y_LIMIT_BIT)); }
+  // add own value:
+  if ( axis_idx == 3) { return ((1<<RESET_BIT)); } // define RESET_BIT!
+  // additional axis introduced...
+  return((1<<Z_LIMIT_BIT));
+}
+
+
+limits_get_state():
+checks which pin is triggered
+--> uint8_t pin = (LIMIT_PIN & LIMIT_MASK); add pin here to also check
+--> limit_state returned (0,1,2 for X,Y,Z) --> add new limit_state 3 for reset
+
+--> add if condition to trigger
+system_set_exec_alarm(EXEC_ALARM_HARD_LIMIT); // Indicate hard limit critical 
+only if limit_state not 3 (reset)
