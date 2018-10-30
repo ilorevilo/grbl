@@ -131,7 +131,8 @@
   #define PROBE_DDR       DDRC
   #define PROBE_PIN       PINC
   #define PROBE_PORT      PORTC
-  #define PROBE_BIT       5  // Uno Analog Pin 5
+  //#define PROBE_BIT       5  // Uno Analog Pin 5
+  #define PROBE_BIT       0  // change to Uno Analog Pin 0
   #define PROBE_MASK      (1<<PROBE_BIT)
 
   // Variable spindle configuration below. Do not change unless you know what you are doing.
