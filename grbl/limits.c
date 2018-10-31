@@ -75,10 +75,14 @@ uint8_t limits_get_state()
   #endif
   if (bit_isfalse(settings.flags,BITFLAG_INVERT_LIMIT_PINS)) { pin ^= LIMIT_MASK; }
   if (pin) {
-    uint8_t idx;
-    for (idx=0; idx<N_AXIS; idx++) {
-      if (pin & get_limit_pin_mask(idx)) { limit_state |= (1 << idx); }
-    }
+    // as just one limit switch not necessary to check all
+    if (pin & (1<<LIMIT_BIT)) { limit_state |= ((1 << 0)|(1 << 1)|(1 << 2));} //necessary to add x,y,z as limit_state?
+    if (pin & (1<<STOP_BIT)) { limit_state |= (1 << 3);}
+        
+    //uint8_t idx;
+    //for (idx=0; idx<N_AXIS; idx++) {
+     // if (pin & get_limit_pin_mask(idx)) { limit_state |= (1 << idx); }
+    //}
   }
   return(limit_state);
 }
@@ -99,7 +103,7 @@ uint8_t limits_get_state()
   ISR(LIMIT_INT_vect) // DEFAULT: Limit pin change interrupt process.
   {
     uint8_t limit_state = limits_get_state();
-    if (limit_state == (1 << 3) ) {mc_reset();} // catch interrupt for reset pin
+    if (limit_state & (1 << 3) ) {mc_reset();} // catch interrupt for reset pin
     
     // Ignore limit switches if already in an alarm state or in-process of executing an alarm.
     // When in the alarm state, Grbl should have been reset or will force a reset, so any pending
