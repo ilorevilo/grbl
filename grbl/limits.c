@@ -99,7 +99,7 @@ uint8_t limits_get_state()
   ISR(LIMIT_INT_vect) // DEFAULT: Limit pin change interrupt process.
   {
     uint8_t limit_state = limits_get_state();
-    if (limit_state == 3) {mc_reset();} // catch interrupt for reset pin
+    if (limit_state == (1 << 3) ) {mc_reset();} // catch interrupt for reset pin
     
     // Ignore limit switches if already in an alarm state or in-process of executing an alarm.
     // When in the alarm state, Grbl should have been reset or will force a reset, so any pending
