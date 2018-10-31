@@ -33,7 +33,7 @@ Step X: D2 -> D5 x
 Step Y: D3 -> D6 x  
 Step Z: D4 -> D7 x  
 
-Reset / Abort: A0 -> D9  
+Reset / Abort: A0 -> D9 x  
 Enable (Spindle PWM): D11 -> D13 x  
 Probe: A5 -> A0 x  
 
