@@ -65,7 +65,7 @@
   //#define Y_LIMIT_BIT      2  // Uno Digital Pin 10
 
   #define LIMIT_BIT   2 // set only one limit pin: Uno Digital Pin 10
-  #define ABORT_BIT  3 // add emergency switch on Uno Digital Pin 11
+  #define ABORT_BIT  1 // add emergency switch on Uno Digital Pin 9
 
 /*
   #ifdef VARIABLE_SPINDLE // Z Limit pin and spindle enabled swapped to access hardware PWM on Pin 11.
