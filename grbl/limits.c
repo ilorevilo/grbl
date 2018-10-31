@@ -98,16 +98,20 @@ uint8_t limits_get_state()
 #ifndef ENABLE_SOFTWARE_DEBOUNCE
   ISR(LIMIT_INT_vect) // DEFAULT: Limit pin change interrupt process.
   {
+    uint8_t limit_state = limits_get_state();
+    if (limit_state == 3) {mc_reset();} // catch interrupt for reset pin
+    
     // Ignore limit switches if already in an alarm state or in-process of executing an alarm.
     // When in the alarm state, Grbl should have been reset or will force a reset, so any pending
     // moves in the planner and serial buffers are all cleared and newly sent blocks will be
     // locked out until a homing cycle or a kill lock command. Allows the user to disable the hard
     // limit setting if their limits are constantly triggering after a reset and move their axes.
-    if (sys.state != STATE_ALARM) {
+    else if (sys.state != STATE_ALARM) {
       if (!(sys_rt_exec_alarm)) {
         #ifdef HARD_LIMIT_FORCE_STATE_CHECK
           // Check limit pin state.
-          if (limits_get_state()) {
+          //if (limits_get_state()) {
+          if (limit_state) {
             mc_reset(); // Initiate system kill.
             system_set_exec_alarm(EXEC_ALARM_HARD_LIMIT); // Indicate hard limit critical event
           }
