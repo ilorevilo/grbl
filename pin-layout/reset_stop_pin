@@ -53,9 +53,9 @@ uint8_t get_limit_pin_mask(uint8_t axis_idx)
 
 limits_get_state():
 checks which pin is triggered
---> uint8_t pin = (LIMIT_PIN & LIMIT_MASK); add pin here to also check
---> limit_state returned (0,1,2 for X,Y,Z) --> add new limit_state 3 for reset
+--> uint8_t pin = (LIMIT_PIN & LIMIT_MASK); add pin here to also check x
+--> limit_state returned (0,1,2 for X,Y,Z) --> add new limit_state 1<<3 for reset x
 
---> add if condition to trigger
+--> add if condition to trigger x
 system_set_exec_alarm(EXEC_ALARM_HARD_LIMIT); // Indicate hard limit critical 
 only if limit_state not 3 (reset)
