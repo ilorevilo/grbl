@@ -40,4 +40,4 @@ Probe: A5 -> A0 x
 Limit: set only one limit (Y) on D10 as is x --> (D9, D11/D12 not configured here anymore)  
 D12 not set anymore as Limit Z Pin x  
 D11 not set as Spindle_direction_bit x  
-A5 not defined anymore, (set as input but don't use or no action needed?)
+A5 not defined anymore,  --> set as input x (really needed?)
