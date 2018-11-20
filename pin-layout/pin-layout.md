@@ -25,17 +25,20 @@
 
 pins to move:
 
-Dir X: D5 -> D2  
-Dir Y: D6 -> D3  
-Dir Z: D7 -> D4  
+Dir X: D5 -> D2 x  
+Dir Y: D6 -> D3 x  
+Dir Z: D7 -> D4 x  
 
-Step X: D2 -> D5  
-Step Y: D3 -> D6  
-Step Z: D4 -> D7  
+Step X: D2 -> D5 x  
+Step Y: D3 -> D6 x  
+Step Z: D4 -> D7 x  
 
-Reset / Abort: A0 -> D9  
-Enable (Spindle PWM): D11 -> D13  
-Probe: A5 -> A0  
+Reset / Abort: A0 -> D9 x  
+Enable (Spindle PWM): D11 -> D13 x  
+Probe: A5 -> A0 x  
 
-Limit: set only one limit (Y) on D10 as is  
-set D11 /D12/ A5 as input but don't use
+Limit: set only one limit (Y) on D10 as is x --> (D9, D11/D12 not configured here anymore)  
+D12 not set anymore as Limit Z Pin x  
+D11 not set as Spindle_direction_bit x  
+A5 not defined anymore,  --> set as input x (really needed?)
+D11/D12 not defined, --> set as input x

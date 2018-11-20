@@ -75,10 +75,14 @@ uint8_t limits_get_state()
   #endif
   if (bit_isfalse(settings.flags,BITFLAG_INVERT_LIMIT_PINS)) { pin ^= LIMIT_MASK; }
   if (pin) {
-    uint8_t idx;
-    for (idx=0; idx<N_AXIS; idx++) {
-      if (pin & get_limit_pin_mask(idx)) { limit_state |= (1 << idx); }
-    }
+    // as just one limit switch not necessary to check all
+    if (pin & (1<<LIMIT_BIT)) { limit_state |= ((1 << 0)|(1 << 1)|(1 << 2));} //necessary to add x,y,z as limit_state?
+    if (pin & (1<<STOP_BIT)) { limit_state |= (1 << 3);}
+        
+    //uint8_t idx;
+    //for (idx=0; idx<N_AXIS; idx++) {
+     // if (pin & get_limit_pin_mask(idx)) { limit_state |= (1 << idx); }
+    //}
   }
   return(limit_state);
 }
@@ -98,16 +102,20 @@ uint8_t limits_get_state()
 #ifndef ENABLE_SOFTWARE_DEBOUNCE
   ISR(LIMIT_INT_vect) // DEFAULT: Limit pin change interrupt process.
   {
+    uint8_t limit_state = limits_get_state();
+    if (limit_state & (1 << 3) ) {mc_reset();} // catch interrupt for reset pin
+    
     // Ignore limit switches if already in an alarm state or in-process of executing an alarm.
     // When in the alarm state, Grbl should have been reset or will force a reset, so any pending
     // moves in the planner and serial buffers are all cleared and newly sent blocks will be
     // locked out until a homing cycle or a kill lock command. Allows the user to disable the hard
     // limit setting if their limits are constantly triggering after a reset and move their axes.
-    if (sys.state != STATE_ALARM) {
+    else if (sys.state != STATE_ALARM) {
       if (!(sys_rt_exec_alarm)) {
         #ifdef HARD_LIMIT_FORCE_STATE_CHECK
           // Check limit pin state.
-          if (limits_get_state()) {
+          //if (limits_get_state()) {
+          if (limit_state) {
             mc_reset(); // Initiate system kill.
             system_set_exec_alarm(EXEC_ALARM_HARD_LIMIT); // Indicate hard limit critical event
           }

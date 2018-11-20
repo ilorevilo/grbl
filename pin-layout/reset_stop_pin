@@ -1,0 +1,61 @@
+ defined in CONTROL_DDR:
+ 
+ #define CONTROL_RESET_BIT 0 // Uno Analog Pin 0
+ --> together with other control bits in CONTROL_MASK 
+ 
+ in system_init() --> set as input:
+CONTROL_DDR &= ~(CONTROL_MASK);
+
+CONTROL_PCMSK |= CONTROL_MASK; // Enable specific pins of the Pin Change Interrupt
+PCICR |= (1 << CONTROL_INT); // Enable Pin Change Interrupt
+(#define CONTROL_INT PCIE1 // Pin change interrupt enable pin)
+//PCIEx, PINx, PORTx, etc. are constants that are coded with the bit numbers for the particular register they belong to for the particular MCU you're compiling GCC against.
+
+ISR(CONTROL_INT_vect)
+(#define CONTROL_INT_vect PCINT1_vect)
+PCINT1_vect fires when attached pins change (?)
+
+-> ISR then checks which pin was pressed:
+
+  uint8_t pin = system_control_get_state();
+  if (pin) {
+    if (bit_istrue(pin,CONTROL_PIN_INDEX_RESET)) {
+mc_reset();
+
+system_control_get_state(): // Returns control pin state as a uint8 bitfield.
+uint8_t system_control_get_state()
+{
+  uint8_t control_state = 0;
+uint8_t pin = (CONTROL_PIN & CONTROL_MASK);
+
+if (bit_isfalse(pin,(1<<CONTROL_RESET_BIT))) { control_state |= CONTROL_PIN_INDEX_RESET; }
+(#define CONTROL_PIN_INDEX_RESET bit(1))
+
+for CONTROL_RESET_BIT:
+do mc_reset(); --> only action
+
+---> remove control_reset_bit x
+---> make other input port call mc_reset() when button pressed
+
+use ISR from limit switches (D13 now free)
+LIMIT_INT_vect 
+
+uint8_t get_limit_pin_mask(uint8_t axis_idx)
+{
+  if ( axis_idx == X_AXIS ) { return((1<<X_LIMIT_BIT)); }
+  if ( axis_idx == Y_AXIS ) { return((1<<Y_LIMIT_BIT)); }
+  // add own value:
+  if ( axis_idx == 3) { return ((1<<RESET_BIT)); } // define RESET_BIT!
+  // additional axis introduced...
+  return((1<<Z_LIMIT_BIT));
+}
+
+
+limits_get_state():
+checks which pin is triggered
+--> uint8_t pin = (LIMIT_PIN & LIMIT_MASK); add pin here to also check x
+--> limit_state returned (0,1,2 for X,Y,Z) --> add new limit_state 1<<3 for reset x
+
+--> add if condition to trigger x
+system_set_exec_alarm(EXEC_ALARM_HARD_LIMIT); // Indicate hard limit critical 
+only if limit_state not 3 (reset)

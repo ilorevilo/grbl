@@ -48,8 +48,9 @@ void spindle_init()
 
     // Configure no variable spindle and only enable pin.
     SPINDLE_ENABLE_DDR |= (1<<SPINDLE_ENABLE_BIT); // Configure as output pin.
-    SPINDLE_DIRECTION_DDR |= (1<<SPINDLE_DIRECTION_BIT); // Configure as output pin.
-
+    #ifdef USE_DIRECTION_PIN
+    	SPINDLE_DIRECTION_DDR |= (1<<SPINDLE_DIRECTION_BIT); // Configure as output pin.
+		#endif
   #endif
 
   spindle_stop();
