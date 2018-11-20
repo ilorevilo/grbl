@@ -366,6 +366,9 @@
 //uncomment else to use pin D11 as direction pin
 //#define USE_DIRECTION_PIN
 
+//set D11, D12 as input, pins not needed in during operation
+# define DISABLE_PIN_D11_D12
+
 // Alters the behavior of the spindle enable pin with the USE_SPINDLE_DIR_AS_ENABLE_PIN option . By default,
 // Grbl will not disable the enable pin if spindle speed is zero and M3/4 is active, but still sets the PWM 
 // output to zero. This allows the users to know if the spindle is active and use it as an additional control
