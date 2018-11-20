@@ -112,6 +112,8 @@
 
     #define DISABLE_D11_BIT 3
     #define DISABLE_D12_BIT 4
+
+    #define DISABLE_D11_D12_MASK ((1<<DISABLE_D11_BIT)|(1<<DISABLE_D12_BIT))
   #endif  
 
   // Define flood and mist coolant enable output pins.
