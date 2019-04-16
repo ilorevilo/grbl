@@ -23,8 +23,8 @@
 
 void system_init()
 {
-  DISABLE_PIN_D11_D12_DDR  &= ~(DISABLE_PIN_D11_D12_MASK) // configure unused pins as input pins
-  DISABLE_PIN_D11_D12_PORT |= DISABLE_PIN_D11_D12_MASK // enable internal pull-up resistors for these unused pins
+  DISABLE_D11_D12_DDR  &= ~(DISABLE_D11_D12_MASK); // configure unused pins as input pins
+  DISABLE_D11_D12_PORT |= DISABLE_D11_D12_MASK; // enable internal pull-up resistors for these unused pins
     
   CONTROL_DDR &= ~(CONTROL_MASK); // Configure as input pins
   #ifdef DISABLE_CONTROL_PIN_PULL_UP

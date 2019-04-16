@@ -27,7 +27,7 @@
 
 #ifndef defaults_h
 
-#ifdef DEFAULTS_SC-2_300
+#ifdef DEFAULTS_SC2_300
   // default settings for Stepcraft-2/300
 
   #define DEFAULT_X_STEPS_PER_MM 133.333

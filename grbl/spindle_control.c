@@ -56,7 +56,7 @@ void spindle_init()
   spindle_stop();
 }
 
-
+/*
 uint8_t spindle_get_state()
 {
 	#ifdef VARIABLE_SPINDLE
@@ -85,7 +85,7 @@ uint8_t spindle_get_state()
 	#endif
 	return(SPINDLE_STATE_DISABLE);
 }
-
+*/
 
 // Disables the spindle and sets PWM output to zero when PWM variable spindle speed is enabled.
 // Called by various main program and ISR routines. Keep routine small, fast, and efficient.
@@ -232,7 +232,8 @@ void spindle_stop()
     spindle_stop();
   
   } else {
-  
+	
+	/*
     #ifndef USE_SPINDLE_DIR_AS_ENABLE_PIN
       if (state == SPINDLE_ENABLE_CW) {
         SPINDLE_DIRECTION_PORT &= ~(1<<SPINDLE_DIRECTION_BIT);
@@ -240,6 +241,7 @@ void spindle_stop()
         SPINDLE_DIRECTION_PORT |= (1<<SPINDLE_DIRECTION_BIT);
       }
     #endif
+	*/
   
     #ifdef VARIABLE_SPINDLE
       // NOTE: Assumes all calls to this function is when Grbl is not moving or must remain off.

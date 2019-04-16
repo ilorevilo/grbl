@@ -77,7 +77,7 @@ uint8_t limits_get_state()
   if (pin) {
     // as just one limit switch not necessary to check all
     if (pin & (1<<LIMIT_BIT)) { limit_state |= ((1 << 0)|(1 << 1)|(1 << 2));} //necessary to add x,y,z as limit_state?
-    if (pin & (1<<STOP_BIT)) { limit_state |= (1 << 3);}
+    if (pin & (1<<ABORT_BIT)) { limit_state |= (1 << 3);}
         
     //uint8_t idx;
     //for (idx=0; idx<N_AXIS; idx++) {

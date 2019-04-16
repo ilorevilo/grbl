@@ -107,8 +107,8 @@
 
 // set these pins as input, not used
   #ifdef DISABLE_PIN_D11_D12
-    #define DISABLE_PIN_D11_D12_DDR DDRB
-    #define DISABLE_PIN_D11_D12_PORT PORTB
+    #define DISABLE_D11_D12_DDR DDRB
+    #define DISABLE_D11_D12_PORT PORTB
 
     #define DISABLE_D11_BIT 3
     #define DISABLE_D12_BIT 4
